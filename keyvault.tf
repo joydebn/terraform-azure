@@ -20,7 +20,5 @@ resource "azurerm_key_vault_secret" "mysql_password" {
   value        = var.mysql_admin_password
   key_vault_id = azurerm_key_vault.dev.id
 
-  lifecycle {
-    prevent_destroy = true
-  }
+  
 }
