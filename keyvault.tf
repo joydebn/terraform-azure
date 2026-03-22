@@ -1,5 +1,6 @@
 data "azurerm_client_config" "current" {}
 
+
 resource "azurerm_key_vault" "dev" {
   name                = "kv-dev-aks01"
   location            = var.location
