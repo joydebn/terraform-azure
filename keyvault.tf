@@ -12,7 +12,7 @@ resource "azurerm_key_vault" "dev" {
     object_id = data.azurerm_client_config.current.object_id
 
     # Allow Terraform identity to read and set secrets
-    secret_permissions = ["Get", "List", "Set"]
+    secret_permissions = ["Get", "List", "Set", "Delete"]
   }
 }
 
