@@ -63,19 +63,24 @@ resource "azurerm_mysql_flexible_server" "mysql" {
   location            = var.location
   resource_group_name = var.resource_group_name
 
-  administrator_login    = var.mysql_admin_username
-  administrator_password = data.azurerm_key_vault_secret.mysql_password.value
+  administrator_login          = var.mysql_admin_username
+  administrator_login_password = azurerm_key_vault_secret.mysql_password.value
 
   sku_name = "B_Standard_B1ms"
-  version = "8.0.21"
+  version  = "8.0.21"
 
   storage {
     size_gb = 20
   }
 
-  backup_retention_days        = 7
-  geo_redundant_backup_enabled = false
+  backup {
+    backup_retention_days        = 7
+    geo_redundant_backup_enabled = false
+  }
 
- 
+  high_availability {
+    mode = "Disabled"
+  }
+
   delegated_subnet_id = azurerm_subnet.db_subnet.id
 }
