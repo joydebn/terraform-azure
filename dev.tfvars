@@ -1,5 +1,5 @@
 location             = "eastus"
-resource_group_name  = "rg-dev"
+resource_group_name  = "rg-dev-aks"
 vnet_name            = "vnet-dev"
 aks_subnet_name      = "aks-subnet-dev"
 db_subnet_name       = "db-subnet-dev"
