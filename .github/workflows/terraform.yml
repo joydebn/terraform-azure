@@ -42,3 +42,6 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve -var-file="dev.tfvars"
+      - name: Terraform Destroy 
+        if: github.event.inputs.action == 'destroy'
+        run: terraform destroy -auto-approve -var-file="dev.tfvars"
