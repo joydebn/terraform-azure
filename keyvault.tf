@@ -1,17 +1,27 @@
-data "azurerm_key_vault" "dev" {
+data "azurerm_client_config" "current" {}
+
+resource "azurerm_key_vault" "dev" {
   name                = "kv-dev"
-  resource_group_name = "rg-dev"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  tenant_id           = data.azurerm_client_config.current.tenant_id
+  sku_name            = "standard"
+
+  access_policy {
+    tenant_id = data.azurerm_client_config.current.tenant_id
+    object_id = data.azurerm_client_config.current.object_id
+
+    secret_permissions = ["get", "list"]
+  }
+}
+
+resource "azurerm_key_vault_secret" "mysql_password" {
+  name         = "mysql-password"
+  value        = "SuperSecret123!" # or use Terraform variable
+  key_vault_id = azurerm_key_vault.dev.id
 }
 
 data "azurerm_key_vault_secret" "mysql_password" {
   name         = "mysql-password"
-  key_vault_id = data.azurerm_key_vault.dev.id
-}
-
-resource "azurerm_mysql_server" "example" {
-  name                         = var.mysql_server_name
-  location                     = var.location
-  resource_group_name          = var.resource_group_name
-  administrator_login          = var.mysql_admin_username
-  administrator_login_password = data.azurerm_key_vault_secret.mysql_password.value
+  key_vault_id = azurerm_key_vault.dev.id
 }
