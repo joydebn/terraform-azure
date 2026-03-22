@@ -81,4 +81,3 @@ resource "azurerm_mysql_flexible_server" "mysql" {
     mode = "Disabled"
   }
 }
-}
