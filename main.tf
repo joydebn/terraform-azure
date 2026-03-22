@@ -64,7 +64,7 @@ resource "azurerm_mysql_flexible_server" "mysql" {
   resource_group_name = var.resource_group_name
 
   administrator_login          = var.mysql_admin_username
-  administrator_login_password = azurerm_key_vault_secret.mysql_password.value
+  administrator_password = azurerm_key_vault_secret.mysql_password.value
 
   sku_name = "B_Standard_B1ms"
   version  = "8.0.21"
