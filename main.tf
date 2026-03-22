@@ -73,10 +73,5 @@ resource "azurerm_mysql_flexible_server" "mysql" {
     size_gb = 20
   }
 
- 
-  high_availability {
-    mode = "Disabled"
-  }
-
   delegated_subnet_id = azurerm_subnet.db_subnet.id
-}
+  }
